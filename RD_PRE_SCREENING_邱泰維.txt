@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <stdlib.h>
+Q1(void) {
+	for (int count = 0; count <= 255; count++) {
+		if (count % 16 == 0) {
+			printf("\n");
+		}
+		else
+			printf("%0.2X ", count);
+	}
+}
+===============================================================================================================
+typedef struct node
+{
+	int data;
+	struct node* next;
+}NODE;
+
+void Q2() {
+	int input = 0; int size = 0;
+	NODE* head; 
+	NODE* newnode;
+	NODE* ptr;
+	NODE* curen;
+	NODE* temp;
+	
+	head = (NODE*)malloc(sizeof(NODE));
+	head->next = NULL;
+	ptr=head;
+
+	do {
+		printf("新增(1)  離開(2)=>");
+		scanf_s("%d", &input);
+		if (input == 1) {
+			printf("輸入data:");
+			newnode = (NODE*)malloc(sizeof(NODE));
+			scanf_s("%d", &(newnode->data));
+				ptr->next = newnode;
+				newnode->next = NULL;
+				ptr = ptr->next;
+				size++;
+			}
+	} while (input != 2);
+	for (int i = size; i > 0; i--) {
+		curen = head;
+		ptr = head;
+		for (int j = 0; j < i  && curen->next; j++) {
+			if (curen->data > curen->next->data) {
+				temp = curen->next;
+				curen->next = temp->next;
+				temp->next = curen;
+				if (curen == head) {
+					head = temp;
+					ptr = temp;
+				}
+				else {
+					ptr->next = temp;
+					ptr = ptr->next;
+				}
+			}
+			else {
+				curen = curen->next;
+				if (j != 0)ptr = ptr->next;
+			}
+		}
+	}
+		ptr = head->next;
+		while (ptr != NULL) {
+			printf("%d",ptr->data);
+			ptr = ptr->next;
+		}
+}
+====================================================================================================================
+Q3() {
+	char input[] = { 'b','c','a','a','b','a','b','c','a','a','a','g','c' };
+	int length = sizeof(input);
+	int count = 1; int maxcount = 0; 
+	int index = 0; char ch='0';
+	for (int x = 0; x < length; x++) {
+		if (input[x] == input[x+1] )
+		{
+			count++;
+			if (maxcount < count && input[x] == input[x + 1]) {
+				index = x+1-maxcount;
+			}
+			if (maxcount < count) {
+				ch = input[x];
+				maxcount = count;
+			}
+			
+			
+		}
+		else {
+			count = 1;
+		}
+	}
+	printf("\nelement \"%c\" has contiguous %d counts and start from index %d\n", ch, maxcount, index);
+}
+====================================================================================================================
+void Q4(char a[],int length) {
+	int count = 0;
+	char temp = '0';
+	for (int x = 0; x < length; x++) {
+		for (int y = 0; y < length; y++) {
+			if (a[x] < a[y]) {
+				temp = a[y];
+				a[y] = a[x];
+				a[x] = temp;
+			}
+		}
+	}
+	while (count < length) {
+		printf_s("%c", a[count]);
+		count++;
+	}
+	printf_s("\n");
+}
+=====================================================================================================================
+int main(void) {
+	Q1();
+	Q2();
+	Q3();
+	char a[] = { '1','9','F','8','4','6','B','C','A' };
+	Q4(a, sizeof(a));
+	}
+=====================================================================================================================
+第5題:EC
+第6題:01010101
+第7題:(1)56(2)無效(3)238
+第8題:(4)15(5)0
